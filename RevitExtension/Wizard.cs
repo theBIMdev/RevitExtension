@@ -14,11 +14,9 @@ namespace RevitExtension
         DTE VS = null;
         //IEnumerable<string> _packages;
 
-        // This method is called before opening any item that
-        // has the OpenInEditor attribute.
+        // This method is called before opening any item that has the OpenInEditor attribute.
         public void BeforeOpeningFile(ProjectItem projectItem)
         {
-            Debug.WriteLine("----------------------------------------BeforeOpeningFile---------------------------------------------------");
         }
 
         public void ProjectFinishedGenerating(Project project)
@@ -101,8 +99,6 @@ namespace RevitExtension
                 }
             }
 
-
-
             Debug.WriteLine("\r\n----------------------------------------RunFinished---------------------------------------------------\r\n\r\n");
         }
 
@@ -139,11 +135,9 @@ namespace RevitExtension
             Debug.WriteLine("\r\n----------------------------------------RunStarted---------------------------------------------------\r\n\r\n");
         }
 
-        // This method is only called for item templates,
-        // not for project templates.
+        // This method is only called for item templates, not for project templates.
         public bool ShouldAddProjectItem(string filePath)
         {
-            Debug.WriteLine("----------------------------------------ShouldAddProjectItem---------------------------------------------------");
             return true;
         }
     }
