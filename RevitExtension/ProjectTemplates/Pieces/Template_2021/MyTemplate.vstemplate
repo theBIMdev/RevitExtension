@@ -19,6 +19,7 @@
         <ProjectItem ReplaceParameters="false" TargetFileName="RevitAPI.dll">RevitAPI.dll</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="RevitAPIUI.dll">RevitAPIUI.dll</ProjectItem>
       </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
       <Folder Name="Properties" TargetFolderName="Properties">
         <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       </Folder>

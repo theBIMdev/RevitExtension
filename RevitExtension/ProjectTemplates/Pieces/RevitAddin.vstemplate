@@ -33,6 +33,9 @@
       <ProjectTemplateLink ProjectName="$projectname$_2021">
         Template_2021\MyTemplate.vstemplate
       </ProjectTemplateLink>
+      <ProjectTemplateLink ProjectName="$projectname$_2022">
+        Template_2022\MyTemplate.vstemplate
+      </ProjectTemplateLink>
     </ProjectCollection>
   </TemplateContent>
   <WizardExtension>
