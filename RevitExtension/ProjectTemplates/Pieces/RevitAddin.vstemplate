@@ -18,22 +18,22 @@
   </TemplateData>
   <TemplateContent>
     <ProjectCollection>
-      <ProjectTemplateLink ProjectName="$projectname$">
+      <ProjectTemplateLink ProjectName="$projectname$" CopyParameters="true">
         Template_Shared\MyTemplate.vstemplate
       </ProjectTemplateLink>
-      <ProjectTemplateLink ProjectName="$projectname$_2018">
+      <ProjectTemplateLink ProjectName="$projectname$_2018" CopyParameters="true">
         Template_2018\MyTemplate.vstemplate
       </ProjectTemplateLink>
-      <ProjectTemplateLink ProjectName="$projectname$_2019">
+      <ProjectTemplateLink ProjectName="$projectname$_2019" CopyParameters="true">
         Template_2019\MyTemplate.vstemplate
       </ProjectTemplateLink>
-      <ProjectTemplateLink ProjectName="$projectname$_2020">
+      <ProjectTemplateLink ProjectName="$projectname$_2020" CopyParameters="true">
         Template_2020\MyTemplate.vstemplate
       </ProjectTemplateLink>
-      <ProjectTemplateLink ProjectName="$projectname$_2021">
+      <ProjectTemplateLink ProjectName="$projectname$_2021" CopyParameters="true">
         Template_2021\MyTemplate.vstemplate
       </ProjectTemplateLink>
-      <ProjectTemplateLink ProjectName="$projectname$_2022">
+      <ProjectTemplateLink ProjectName="$projectname$_2022" CopyParameters="true">
         Template_2022\MyTemplate.vstemplate
       </ProjectTemplateLink>
     </ProjectCollection>

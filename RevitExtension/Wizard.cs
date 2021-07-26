@@ -12,7 +12,7 @@ namespace RevitExtension
     class Wizard : IWizard
     {
         DTE VS = null;
-        //IEnumerable<string> _packages;
+        IEnumerable<string> _packages;
 
         // This method is called before opening any item that has the OpenInEditor attribute.
         public void BeforeOpeningFile(ProjectItem projectItem)
@@ -91,7 +91,7 @@ namespace RevitExtension
                         }
                         catch { Debug.WriteLine($"{prop.Name}"); }
                     }
-                    Debug.WriteLine("\r\n-----------------Globals---------------------");
+                    //Debug.WriteLine("\r\n-----------------Globals---------------------");
                     //foreach (String s in (Array)project.Globals.VariableNames)
                     //{
                     //    Debug.WriteLine(s);
