@@ -21,6 +21,9 @@
       <ProjectTemplateLink ProjectName="$projectname$" CopyParameters="true">
         Template_Shared\MyTemplate.vstemplate
       </ProjectTemplateLink>
+      <ProjectTemplateLink ProjectName="$projectname$_Resources" CopyParameters="true">
+        Template_Resources\MyTemplate.vstemplate
+      </ProjectTemplateLink>
       <ProjectTemplateLink ProjectName="$projectname$_2018" CopyParameters="true">
         Template_2018\MyTemplate.vstemplate
       </ProjectTemplateLink>

@@ -6,11 +6,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VSLangProj;
 
 namespace RevitExtension
 {
     class Wizard : IWizard
     {
+        private static string safeProjectName { get; set; }
         DTE VS = null;
         IEnumerable<string> _packages;
 
@@ -62,42 +64,86 @@ namespace RevitExtension
             Debug.WriteLine("\r\n\r\n----------------------------------------RunFinished---------------------------------------------------\r\n");
 
 
-
-            var projects = VS.Solution.Projects;
-
-            //for (int i = 0; i < projects.Count; i++)
-            foreach (var proj in projects)
+            Project sharedProj = null;
+            Project resourceProj = null;
+            List<Project> versionProjs = new List<Project>();
+            foreach (Project project in VS.Solution.Projects)
             {
-                if (proj is Project project)
+                if (project.Name.Contains("Resources"))
+                { 
+                    resourceProj = project;
+                }
+                else if (project.Name == safeProjectName)
                 {
-                    var temp0 = project.Name;
-                    var temp1 = project.FileName;
-                    var temp2 = project.DTE;
-                    var temp3 = project.ProjectItems;
-                    foreach (Property prop in project.Properties)
-                    {
-                        try
-                        {
-                            if (prop.Name == "Description")
-                            {
-                                prop.let_Value("THIS IS THE DESCRIPTION!!!");
-                                prop.Value = "THIS IS THE DESCRIPTION!!!";
-                                Debug.WriteLine($"-{prop.Name}");
-                                Debug.WriteLine($"-{prop.GetType()}");
-                                Debug.WriteLine($"-{prop.NumIndices}");
-                                Debug.WriteLine($"-{prop.Value}");
-                            }
-                            //Debug.WriteLine($"{prop.Name} - {prop.Value.ToString()}");
-                        }
-                        catch { Debug.WriteLine($"{prop.Name}"); }
-                    }
-                    //Debug.WriteLine("\r\n-----------------Globals---------------------");
-                    //foreach (String s in (Array)project.Globals.VariableNames)
-                    //{
-                    //    Debug.WriteLine(s);
-                    //}
+                    sharedProj = project;
+                }
+                else
+                {
+                    versionProjs.Add(project);
                 }
             }
+
+            foreach (Project version in versionProjs)
+            {
+                VSProject vsProj = (VSProject)version.Object;
+                if (sharedProj != null)
+                {
+                    Debug.WriteLine(sharedProj.FileName);
+                    Debug.WriteLine(sharedProj.UniqueName);
+                    Debug.WriteLine(sharedProj.Kind);
+
+                    var codeModel = sharedProj.CodeModel;
+                    var mngr = sharedProj.UniqueName;
+
+
+                    //BuildDependency bldDepends = VS.Solution.SolutionBuild.BuildDependencies.Item(version.UniqueName);
+                    //bldDepends.AddProject(sharedProj.FileName);// "win32\\emulator\\os\\lib\\u2knet\\lib_u2knet.vcxproj");
+
+                    //vsProj.References.Add(sharedProj.FileName);
+                    //vsProj.References.AddProject(sharedProj);
+                }
+                if (resourceProj != null)
+                {
+                    vsProj.References.AddProject(resourceProj);
+                }
+            }
+
+
+            //if (project.Name != safeProjectName && !project.Name.Contains("Resources"))
+            //{
+            //    sharedProj = project;
+            //    VSProject vsProj = (VSProject)project.Object;
+            //    Debug.WriteLine(vsProj.TemplatePath);
+            //}
+
+            //var temp0 = project.Name;
+            //var temp1 = project.FileName;
+            //var temp2 = project.DTE;
+            //var temp3 = project.ProjectItems;
+            //foreach (Property prop in project.Properties)
+            //{
+            //    try
+            //    {
+            //        if (prop.Name == "Description")
+            //        {
+            //            prop.let_Value("THIS IS THE DESCRIPTION!!!");
+            //            prop.Value = "THIS IS THE DESCRIPTION!!!";
+            //            Debug.WriteLine($"-{prop.Name}");
+            //            Debug.WriteLine($"-{prop.GetType()}");
+            //            Debug.WriteLine($"-{prop.NumIndices}");
+            //            Debug.WriteLine($"-{prop.Value}");
+            //        }
+            //        //Debug.WriteLine($"{prop.Name} - {prop.Value.ToString()}");
+            //    }
+            //    catch { Debug.WriteLine($"{prop.Name}"); }
+            //}
+            ////Debug.WriteLine("\r\n-----------------Globals---------------------");
+            ////foreach (String s in (Array)project.Globals.VariableNames)
+            ////{
+            ////    Debug.WriteLine(s);
+            ////}
+
+
 
             Debug.WriteLine("\r\n----------------------------------------RunFinished---------------------------------------------------\r\n\r\n");
         }
@@ -129,6 +175,7 @@ namespace RevitExtension
             //var temp2 = runKind.ToString();
             foreach (var entry in replacementsDictionary) Debug.WriteLine($"{entry.Key} - {entry.Value}");
 
+            safeProjectName = replacementsDictionary["$safeprojectname$"];
 
             replacementsDictionary.Add("$custommessage$", "ThisIsTheCustomParameter");
 
