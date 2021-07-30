@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="RevitAPI, Version=21.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLs\RevitAPI.dll</HintPath>
@@ -44,12 +45,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +60,12 @@
   <ItemGroup>
     <Content Include="DLLs\RevitAPI.dll" />
     <Content Include="DLLs\RevitAPIUI.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Template_Resources\Template_Resources.csproj">
+      <Project>{1fc9d066-cae4-478d-9b4a-c0b79b3fd09d}</Project>
+      <Name>Template_Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

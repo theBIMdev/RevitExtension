@@ -66,7 +66,7 @@ namespace RevitExtension
                 }
 
                 // Add reference to the Resources project
-                if (resourceProj != null) { vsProj.References.AddProject(resourceProj); }
+                //if (resourceProj != null) { vsProj.References.AddProject(resourceProj); }
 
                 // Add a manifest file
                 string manifestFile = generateAppManifest(
