@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLs\RevitAPI.dll</HintPath>
@@ -59,4 +61,8 @@
     <Content Include="DLLs\RevitAPIUI.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if exist "C:\ProgramData\Autodesk\Revit\Addins\2018" copy "$(ProjectDir)bin\debug\*.addin" "C:\ProgramData\Autodesk\Revit\Addins\2018"
+if exist "C:\ProgramData\Autodesk\Revit\Addins\2018" copy "$(ProjectDir)bin\debug\*.dll" "C:\ProgramData\Autodesk\Revit\Addins\2018"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

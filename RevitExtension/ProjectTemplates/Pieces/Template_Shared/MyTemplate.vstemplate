@@ -18,6 +18,7 @@
     <Project TargetFileName="Template_Shared.shproj" File="Template_Shared.shproj" ReplaceParameters="true">
       <ProjectItem TargetFileName="$safeprojectname$.projitems" ReplaceParameters="true">Template_Shared.projitems</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="App.cs">App.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="UILoader.cs">UILoader.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
