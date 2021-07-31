@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows, Version=3.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\AdWindows.dll</HintPath>
+    </Reference>
     <Reference Include="RevitAPI, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLs\RevitAPI.dll</HintPath>
@@ -53,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\AdWindows.dll" />
     <Content Include="DLLs\RevitAPI.dll" />
     <Content Include="DLLs\RevitAPIUI.dll" />
   </ItemGroup>

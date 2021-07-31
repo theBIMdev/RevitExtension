@@ -15,7 +15,6 @@
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Template_Resources.csproj" File="Template_Resources.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="Class1.cs">Class1.cs</ProjectItem>
       <Folder Name="Properties" TargetFolderName="Properties">
         <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
@@ -23,6 +22,7 @@
       </Folder>
       <Folder Name="Resources" TargetFolderName="Resources">
         <ProjectItem ReplaceParameters="false" TargetFileName="PlaceHolder_16.png">PlaceHolder_16.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="PlaceHolder_32.ico">PlaceHolder_32.ico</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="PlaceHolder_32.png">PlaceHolder_32.png</ProjectItem>
       </Folder>
     </Project>

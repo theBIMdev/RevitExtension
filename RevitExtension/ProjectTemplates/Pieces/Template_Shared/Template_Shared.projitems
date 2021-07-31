@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UILoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\AbstractButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\Button1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Commands\" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
   <TemplateContent>
     <Project TargetFileName="Template_2019.csproj" File="Template_2019.csproj" ReplaceParameters="true">
       <Folder Name="DLLs" TargetFolderName="DLLs">
+        <ProjectItem ReplaceParameters="false" TargetFileName="AdWindows.dll">AdWindows.dll</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="RevitAPI.dll">RevitAPI.dll</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="RevitAPIUI.dll">RevitAPIUI.dll</ProjectItem>
       </Folder>

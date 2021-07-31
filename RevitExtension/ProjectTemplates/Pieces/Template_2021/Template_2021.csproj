@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\AdWindows.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="RevitAPI, Version=21.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -58,14 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\AdWindows.dll" />
     <Content Include="DLLs\RevitAPI.dll" />
     <Content Include="DLLs\RevitAPIUI.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Template_Resources\Template_Resources.csproj">
-      <Project>{1fc9d066-cae4-478d-9b4a-c0b79b3fd09d}</Project>
-      <Name>Template_Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

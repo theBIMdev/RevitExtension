@@ -17,8 +17,11 @@
   <TemplateContent>
     <Project TargetFileName="Template_Shared.shproj" File="Template_Shared.shproj" ReplaceParameters="true">
       <ProjectItem TargetFileName="$safeprojectname$.projitems" ReplaceParameters="true">Template_Shared.projitems</ProjectItem>
+      <Folder Name="Commands" TargetFolderName="Commands">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AbstractButton.cs">AbstractButton.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Button1.cs">Button1.cs</ProjectItem>
+      </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="App.cs">App.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="UILoader.cs">UILoader.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

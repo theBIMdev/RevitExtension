@@ -13,7 +13,7 @@ using Autodesk.Windows;
 using Autodesk.Internal.Windows;
 using Autodesk.Revit.ApplicationServices;
 
-namespace $safeprojectname$
+namespace $ext_safeprojectname$
 {
     /// <summary> The starting point of the ConcoTools Addin. </summary>
     public class App : IExternalApplication
@@ -25,6 +25,7 @@ namespace $safeprojectname$
             try
             {
                 // OPTIONAL: Add buttons and register commands
+                Button1.LoadButton1();
 
                 // OPTIONAL: Subscribe to events
                 // See https://www.revitapidocs.com/2022/fa23dcb9-fd52-b8ac-eec4-7ce03eac4b7d.htm
@@ -60,54 +61,3 @@ namespace $safeprojectname$
         }
     }
 }
-
-
-
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using Autodesk.Revit.DB.Events;
-//using Autodesk.Revit.UI;
-
-//namespace $safeprojectname$
-//{
-//    class App : IExternalApplication
-//    {
-//        public Result OnStartup(UIControlledApplication application)
-//        {
-//            try 
-//            {
-//                // Subscribe to events
-//                application.ControlledApplication.DocumentCreated += new EventHandler<DocumentCreatedEventArgs>(AppDocCreated);
-
-//                // RegisterCommands
-//                // RegisterUpdaters
-//            }
-//            catch
-//            {
-//                return Result.Failed;
-//            }
-//            return Result.Succeeded;
-//        }
-
-//        public Result OnShutdown(UIControlledApplication application)
-//        {
-//            try
-//            {
-//                // UnregisterCommands(application);
-//                // UnregisterUpdaters(application);
-//            }
-//            catch
-//            {
-//                return Result.Failed;
-//            }
-//            return Result.Succeeded;
-//        }
-
-//        // Application Event Handlers
-//        public void AppDocCreated(object sender, DocumentCreatedEventArgs args)
-//        {
-
-//        }
-//    }
-//}

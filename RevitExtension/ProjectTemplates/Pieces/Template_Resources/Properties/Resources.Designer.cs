@@ -79,5 +79,15 @@ namespace $safeprojectname$.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon PlaceHolder_321 {
+            get {
+                object obj = ResourceManager.GetObject("PlaceHolder_321", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

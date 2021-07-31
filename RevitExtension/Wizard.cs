@@ -73,7 +73,7 @@ namespace RevitExtension
                     name: SafeProjectName,
                     assembly: version.Name,
                     addInId: Guid.NewGuid().ToString(),
-                    fullClassName: $"{version.Name}.App",
+                    fullClassName: $"{SafeProjectName}.App",
                     vendorId: "BIMDev",
                     vendorDescription: "www.thebimdev.com",
                     manifestFilePath: $"{ProjectsDirectory}\\{version.Name}\\{SafeProjectName}.addin"
