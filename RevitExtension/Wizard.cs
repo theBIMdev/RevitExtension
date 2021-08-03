@@ -58,15 +58,29 @@ namespace RevitExtension
                     var mngr = sharedProj.UniqueName;
 
                     // !!! Shared project should be added as a reference here, but it is causing a critical error. !!!
-                    //BuildDependency bldDepends = VS.Solution.SolutionBuild.BuildDependencies.Item(version.UniqueName);
-                    //bldDepends.AddProject(sharedProj.FileName);
+                    //try
+                    //{
+                    //    BuildDependency bldDepends = VS.Solution.SolutionBuild.BuildDependencies.Item(version.UniqueName);
+                    //    bldDepends.AddProject(sharedProj.FileName);
+                    //    vsProj.References.Add(sharedProj.FileName);
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Debug.WriteLine(e.Message);
+                    //}
 
-                    //vsProj.References.Add(sharedProj.FileName);
-                    //vsProj.References.AddProject(sharedProj);
+                    //try
+                    //{
+                    //    vsProj.References.AddProject(sharedProj);
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Debug.WriteLine(e.Message);
+                    //}
                 }
 
                 // Add reference to the Resources project
-                //if (resourceProj != null) { vsProj.References.AddProject(resourceProj); }
+                if (resourceProj != null) { vsProj.References.AddProject(resourceProj); }
 
                 // Add a manifest file
                 string manifestFile = generateAppManifest(
