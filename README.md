@@ -1,7 +1,7 @@
 # Revit Extension for Visual Studio
 This extension for Visual Studio provides a template for creating a Revit Addin for any Revit version with most boiler-plate code ready.
 After creting a new project based on this template, compiling and debugging will immediatelly be possible. This should gives novices an easy and clean "Hello World" application that can scale as they learn.
-Experienced Revit creators are welcome to modify the extension for themselves.
+Experienced Revit Addin creators can also be up and running with their ideas very quickly.
 
 ![BIMDev Logo](https://user-images.githubusercontent.com/25995850/128090201-fcd6289a-4fd6-4eab-a7f5-a43233b5356b.png)
 
