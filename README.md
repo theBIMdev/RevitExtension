@@ -5,7 +5,7 @@ Experienced Revit creators are welcome to modify the extension for themselves.
 
 ![BIMDev Logo](https://user-images.githubusercontent.com/25995850/128090201-fcd6289a-4fd6-4eab-a7f5-a43233b5356b.png)
 
-[![GitHub license](https://img.shields.io/github/license/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension) ![GitHub all releases](https://img.shields.io/github/downloads/theBIMdev/RevitExtension/total?style=for-the-badge) [![GitHub stars](https://img.shields.io/github/stars/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension/stargazers) [![GitHub issues](https://img.shields.io/github/issues/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension/issues)
+[![GitHub license](https://img.shields.io/github/license/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension) ![GitHub all releases](https://img.shields.io/github/downloads/theBIMdev/RevitExtension/total?style=for-the-badge) [![GitHub stars](https://img.shields.io/github/stars/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension/stargazers) [![GitHub issues](https://img.shields.io/github/issues/theBIMdev/RevitExtension?style=for-the-badge)](https://github.com/theBIMdev/RevitExtension/issues) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/theBIMdev/RevitExtension/master?style=for-the-badge)
 
 ------------
 ### Features
