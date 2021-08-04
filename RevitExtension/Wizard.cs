@@ -70,13 +70,6 @@ namespace RevitExtension
                 VSProject vsProj = (VSProject)version.Object;
                 if (sharedProj != null)
                 {
-                    Debug.WriteLine(sharedProj.FileName);
-                    Debug.WriteLine(sharedProj.UniqueName);
-                    Debug.WriteLine(sharedProj.Kind);
-
-                    var codeModel = sharedProj.CodeModel;
-                    var mngr = sharedProj.UniqueName;
-
                     // !!! Shared project should be added as a reference here, but it is causing a critical error. !!!
                     //try
                     //{
