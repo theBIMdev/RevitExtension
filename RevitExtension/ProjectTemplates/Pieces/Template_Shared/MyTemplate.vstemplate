@@ -22,6 +22,7 @@
         <ProjectItem ReplaceParameters="true" TargetFileName="Button1.cs">Button1.cs</ProjectItem>
       </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="App.cs">App.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SharedAssemblyInfo.cs">SharedAssemblyInfo.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

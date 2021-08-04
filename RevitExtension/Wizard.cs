@@ -26,20 +26,27 @@ namespace RevitExtension
 {
     class Wizard : IWizard
     {
-        private static string SafeProjectName { get; set; }
-        private static string ProjectsDirectory { get; set; }
-        DTE VS = null;
+        private string SafeProjectName { get; set; }
+        private string ProjectsDirectory { get; set; }
+        private Dictionary<int, string> RevitInstallations { get; } = new Dictionary<int, string>();
+        private DTE VS { get; set; }
 
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams)
         {
+            for (int versionYear = 2010; versionYear < 2100; versionYear++)
+            {
+                string revitExe = $"C:\\Program Files\\Autodesk\\Revit {versionYear}\\Revit.exe";
+                if (File.Exists(revitExe)) { RevitInstallations.Add(versionYear, revitExe); }
+            }
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
             VS = automationObject as DTE;
             SafeProjectName = replacementsDictionary["$safeprojectname$"];
             ProjectsDirectory = replacementsDictionary["$destinationdirectory$"];
 
-            //foreach (var entry in replacementsDictionary) Debug.WriteLine($"{entry.Key} - {entry.Value}");
-            //replacementsDictionary.Add("$custommessage$", "ThisIsTheCustomParameter");
+            replacementsDictionary.Add("$companyname$", "");
+            replacementsDictionary.Add("$projectdescription$", "");
+            replacementsDictionary.Add("$projectcopyright$", $"Copyright ©  {DateTime.Now.Year}");
         }
 
         // This method is called after the solution is created.
@@ -118,8 +125,13 @@ namespace RevitExtension
                 // Point the Debug Start Action at the correct Revit exe
                 Configuration config = version.ConfigurationManager.ActiveConfiguration; 
                 config.Properties.Item("StartAction").Value = VSLangProj.prjStartAction.prjStartActionProgram;
-                config.Properties.Item("StartProgram").Value = $"C:\\Program Files\\Autodesk\\Revit {versionYear}\\Revit.exe";
+                config.Properties.Item("StartProgram").Value = $"C:\\Program Files\\Autodesk\\Revit {versionYear}\\Revit.exe"; ;
 
+                // Set the project associated to the latest installed Revit version as the default startup project.
+                if (RevitInstallations.Keys.Max() == Convert.ToInt32(versionYear))
+                {
+                    VS.Solution.Properties.Item("StartupProject").Value = $"{SafeProjectName}_{versionYear}";
+                }
             }
 
             // Collapse the Solution Explorer

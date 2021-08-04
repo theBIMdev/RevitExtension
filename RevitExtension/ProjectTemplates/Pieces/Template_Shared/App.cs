@@ -25,7 +25,7 @@ namespace $ext_safeprojectname$
             try
             {
                 // OPTIONAL: Add buttons and register commands
-                Button1.LoadButton1(app);
+                Button1.LoadButton(app);
 
                 // OPTIONAL: Subscribe to events
                 // See https://www.revitapidocs.com/2022/fa23dcb9-fd52-b8ac-eec4-7ce03eac4b7d.htm

@@ -14,7 +14,7 @@
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>Revit_Logo.png</Icon>
+    <Icon>BIMDev_Logo.png</Icon>
   </TemplateData>
   <TemplateContent>
     <ProjectCollection>

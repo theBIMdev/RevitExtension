@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\AbstractButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\Button1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Commands\" />
