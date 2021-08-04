@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
+    <Content Include="LICENSE.txt" />
     <Content Include="ProjectTemplates\Pieces\BIMDev_Logo.png" />
     <Content Include="ProjectTemplates\Pieces\RevitAddin.vstemplate" />
     <Content Include="ProjectTemplates\Pieces\Revit_Logo.png" />
