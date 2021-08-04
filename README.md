@@ -5,7 +5,7 @@ Experienced Revit Addin creators can also be up and running with their ideas ver
 
 ![BIMDev Logo](https://user-images.githubusercontent.com/25995850/128090201-fcd6289a-4fd6-4eab-a7f5-a43233b5356b.png)
 
-[![GitHub license](https://img.shields.io/github/license/theBIMdev/RevitExtension?style=flat-square)](https://github.com/theBIMdev/RevitExtension) ![GitHub all releases](https://img.shields.io/github/downloads/theBIMdev/RevitExtension/total?style=flat-square) [![GitHub stars](https://img.shields.io/github/stars/theBIMdev/RevitExtension?style=flat-square)](https://github.com/theBIMdev/RevitExtension/stargazers) [![GitHub issues](https://img.shields.io/github/issues/theBIMdev/RevitExtension?style=flat-square)](https://github.com/theBIMdev/RevitExtension/issues) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/thebimdev/revitextension/master?style=flat-square)
+[![GitHub license](https://img.shields.io/github/license/theBIMdev/RevitExtension)](https://github.com/theBIMdev/RevitExtension/blob/master/COPYING) ![GitHub all releases](https://img.shields.io/github/downloads/theBIMdev/RevitExtension/total?style=flat-square) [![GitHub stars](https://img.shields.io/github/stars/theBIMdev/RevitExtension?style=flat-square)](https://github.com/theBIMdev/RevitExtension/stargazers) [![GitHub issues](https://img.shields.io/github/issues/theBIMdev/RevitExtension?style=flat-square)](https://github.com/theBIMdev/RevitExtension/issues) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/thebimdev/revitextension/master?style=flat-square)
 
 ------------
 ### Features
