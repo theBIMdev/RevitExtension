@@ -1,5 +1,5 @@
 # BIMDev Revit Tools
-This extension for Visual Studio provides a multi-project template for creating a Revit Addin for any Revit version with most boiler-plate code ready. It uses Visual Studio's "Shared Project" to share common code to all Revit versions. After creting a new project based on this extension's template, compiling and debugging will immediatelly be possible. This should gives novices an easy and clean "Hello World" application that can scale as they learn. Experienced Revit creators are welcome to modify the extension for themselves, and provide suggestions for improvement.
+This extension for Visual Studio provides a multi-project template for creating a Revit Addin for any Revit version with most boiler-plate code ready. It uses Visual Studio's "Shared Project" to share common code to all Revit versions. After creating a new project based on this extension's template, compiling and debugging will immediatelly be possible. This should gives novices an easy and clean "Hello World" application that can scale as they learn. Experienced Revit creators are welcome to modify the extension for themselves, and provide suggestions for improvement.
 
 ![BIMDev Logo](https://user-images.githubusercontent.com/25995850/128090201-fcd6289a-4fd6-4eab-a7f5-a43233b5356b.png)
 
