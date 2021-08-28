@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="BIMDevRevitTools.de1039af-5c6c-4f5f-8a9d-b2801562e9ce" Version="1.0" Language="en-US" Publisher="BIMDev LLC" />
+        <Identity Id="BIMDevRevitTools.de1039af-5c6c-4f5f-8a9d-b2801562e9ce" Version="1.1" Language="en-US" Publisher="BIMDev LLC" />
         <DisplayName>Revit Tools</DisplayName>
         <Description xml:space="preserve">This extension for Visual Studio provides a multi-project template for creating a Revit Addin for any Revit version with most boiler-plate code ready. It uses Visual Studio's "Shared Project" to share common code to all Revit versions. After creting a new project based on this extension's template, compiling and debugging will immediatelly be possible. This should gives novices an easy and clean "Hello World" application that can scale as they learn. Experienced Revit creators are welcome to modify the extension for themselves, and provide suggestions for improvement.</Description>
         <MoreInfo>https://github.com/theBIMdev/RevitExtension</MoreInfo>

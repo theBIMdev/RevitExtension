@@ -12,14 +12,13 @@ using System.Diagnostics;
 namespace $ext_safeprojectname$
 {
     // Inherit this class into each button ("command") class to easily implement IExternalCommand and create the associated UI button.
-    [Transaction(TransactionMode.Manual)]
     public abstract class AbstractButton : IExternalCommand
     {
         public abstract Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements);
 
         protected static string AssemblyName { get; } = System.Reflection.Assembly.GetExecutingAssembly().Location;
         protected static UIControlledApplication Application { get; set; }
-        protected static string ClassName { get; set; }
+        protected static Type ButtonClass { get; set; }
         protected static string ButtonName { get; set; }
         protected static string ButtonLabel { get; set; }
         protected static string PanelLabel { get; set; }
@@ -31,19 +30,32 @@ namespace $ext_safeprojectname$
         {
             try
             {
-                // If a tab with this name does not exist, create it;
-                bool tabMissing = true;
-                foreach (var tab in Autodesk.Windows.ComponentManager.Ribbon.Tabs)
-                { if (tab.Name == TabLabel) { tabMissing = false; break; } }
-                if (tabMissing) { Application.CreateRibbonTab(TabLabel); }
+                RibbonPanel ribbonPanel;
 
-                // If a panel already exists in the tab, retrieve it. Otherwise create it.
-                List<RibbonPanel> panels = Application.GetRibbonPanels(TabLabel);
-                RibbonPanel ribbonPanel = panels.Find(p => p.Name == PanelLabel);
-                if (ribbonPanel is null) { ribbonPanel = Application.CreateRibbonPanel(TabLabel, PanelLabel); }
+                // If no dedicated tab is desired, place the button in the default "Add-Ins" tab.
+                if (string.IsNullOrEmpty(TabLabel))
+                {
+                    List<RibbonPanel> panels = Application.GetRibbonPanels();
+                    ribbonPanel = panels.Find(p => p.Name == PanelLabel);
+                    if (ribbonPanel is null) { ribbonPanel = Application.CreateRibbonPanel(PanelLabel); }
+                }
+                else
+                {
+                    // If a tab with this name does not exist, create it;
+                    bool tabMissing = true;
+                    foreach (var tab in Autodesk.Windows.ComponentManager.Ribbon.Tabs)
+                    { if (tab.Name == TabLabel) { tabMissing = false; break; } }
+                    if (tabMissing) { Application.CreateRibbonTab(TabLabel); }
+
+                    // If a panel already exists in the tab, retrieve it. Otherwise create it.
+                    List<RibbonPanel> panels = Application.GetRibbonPanels(TabLabel);
+                    ribbonPanel = panels.Find(p => p.Name == PanelLabel);
+                    if (ribbonPanel is null) { ribbonPanel = Application.CreateRibbonPanel(TabLabel, PanelLabel); }
+                }
 
                 // Create the button in the panel.
-                ribbonPanel.AddItem(new PushButtonData(ButtonName, ButtonLabel, AssemblyName, ClassName)
+                string className = $"{ButtonClass.Namespace}.{ButtonClass.Name}";
+                ribbonPanel.AddItem(new PushButtonData(ButtonName, ButtonLabel, AssemblyName, className)
                 {
                     Image = bitmapToImageSource(ImageSmall),
                     LargeImage = bitmapToImageSource(ImageLarge)
@@ -55,7 +67,7 @@ namespace $ext_safeprojectname$
             }
         }
 
-        private static BitmapImage bitmapToImageSource(Bitmap bitmap)
+    private static BitmapImage bitmapToImageSource(Bitmap bitmap)
         {
             // Convert System.Drawing.Bitmap to a BitmapImage that Revit can use for buttons
             using (MemoryStream mem = new MemoryStream())
