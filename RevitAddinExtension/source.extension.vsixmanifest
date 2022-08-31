@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="RevitExtension.465bfade-bc3f-4e40-81be-7429e936282f" Version="1.0" Language="en-US" Publisher="Company" />
-    <DisplayName>RevitExtension</DisplayName>
+    <Identity Id="RevitAddinExtension.85b74bd0-c5af-4fa5-9728-4c2663fa325d" Version="1.0" Language="en-US" Publisher="Company" />
+    <DisplayName>RevitAddinExtension</DisplayName>
     <Description>Empty VSIX Project.</Description>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\Icon.png</PreviewImage>

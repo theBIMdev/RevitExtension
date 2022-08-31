@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="RevitExtension.RevitAddinControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
+             xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+             xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
+             xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+             xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+             toolkit:Themes.UseVsTheme="True"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="400"
+             Name="MyToolWindow"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid Name="topGrid" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!--Addin Locations Area-->
+        <Grid Grid.Row="1" MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Revit's Addin Location" ToolTip="{Binding ToolTips.MachinePath}"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Locations.MachinePath}" ToolTip="{Binding ToolTips.MachinePath}"/>
+            <Button x:Name="btn_RevitLocation" Grid.Row="1" Grid.Column="2" MaxWidth="20" Height="20" Content="..." Click="btn_RevitLocation_Click"/>
+            <TextBlock Grid.Row="3" Text="User's Addin Location" ToolTip="{Binding ToolTips.UserPath}"/>
+            <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding Locations.UserPath}" ToolTip="{Binding ToolTips.UserPath}"/>
+            <Button x:Name="btn_UserLocation" Grid.Row="4" Grid.Column="2" MaxWidth="20" Height="20" Content="..." Click="btn_UserLocation_Click"/>
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>

@@ -1,20 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31129.286
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitExtension", "RevitExtension\RevitExtension.csproj", "{F257D695-64AC-47F6-9576-850379C5AEF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitAddinExtension", "RevitAddinExtension\RevitAddinExtension.csproj", "{86E72361-6AEE-4DEF-BB20-968AA385FCC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitExtension", "RevitExtension\RevitExtension.csproj", "{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F257D695-64AC-47F6-9576-850379C5AEF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F257D695-64AC-47F6-9576-850379C5AEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F257D695-64AC-47F6-9576-850379C5AEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F257D695-64AC-47F6-9576-850379C5AEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Debug|x86.ActiveCfg = Debug|x86
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Debug|x86.Build.0 = Debug|x86
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Release|x86.ActiveCfg = Release|x86
+		{86E72361-6AEE-4DEF-BB20-968AA385FCC7}.Release|x86.Build.0 = Release|x86
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Debug|x86.ActiveCfg = Debug|x86
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Debug|x86.Build.0 = Debug|x86
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Release|x86.ActiveCfg = Release|x86
+		{3CE7F1F5-B46D-413D-BF05-E0EE5A5A8014}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
