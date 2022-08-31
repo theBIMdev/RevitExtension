@@ -8,6 +8,7 @@
              xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
              xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
              xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+		     xmlns:self="clr-namespace:RevitExtension"
              toolkit:Themes.UseVsTheme="True"
              mc:Ignorable="d"
              d:DesignHeight="800"
@@ -32,23 +33,81 @@
         <Grid Grid.Row="1" MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Revit's Addin Location" ToolTip="{Binding ToolTips.MachinePath}"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Locations.MachinePath}" ToolTip="{Binding ToolTips.MachinePath}"/>
-            <Button x:Name="btn_RevitLocation" Grid.Row="1" Grid.Column="2" MaxWidth="20" Height="20" Content="..." Click="btn_RevitLocation_Click"/>
-            <TextBlock Grid.Row="3" Text="User's Addin Location" ToolTip="{Binding ToolTips.UserPath}"/>
-            <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding Locations.UserPath}" ToolTip="{Binding ToolTips.UserPath}"/>
-            <Button x:Name="btn_UserLocation" Grid.Row="4" Grid.Column="2" MaxWidth="20" Height="20" Content="..." Click="btn_UserLocation_Click"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Revit's Addin Location:" ToolTip="{Binding ToolTips.MachinePath}" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Locations.MachinePath}" ToolTip="{Binding Locations.MachinePath}"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
+            <Button    Grid.Row="1" Grid.Column="1" x:Name="btn_RevitLocation" Content="..." Click="btn_RevitLocation_Click" ToolTip="{Binding ToolTips.MachinePath}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="20" MaxWidth="20"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="User's Addin Location:" ToolTip="{Binding ToolTips.UserPath}" FontWeight="Bold"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding Locations.UserPath}" ToolTip="{Binding Locations.UserPath}"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" />
+            <Button    Grid.Row="4" Grid.Column="1" x:Name="btn_UserLocation" Content="..." Click="btn_UserLocation_Click" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="10" MaxWidth="10"/>
         </Grid>
         
+        <!--Addin Grouping and Labels Area-->
+        <Grid Grid.Row="3" MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="18"/>
+                <ColumnDefinition Width="18"/>
+                <ColumnDefinition Width="17"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Button Name="groupingToggle" Grid.Column="0" Height="22" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="4,0,4,0" 
+                    ScrollViewer.CanContentScroll="False" Click="groupingToggle_Click" Content="Group by Revit Year" Margin="0,0,0,4"/>
+
+
+            <TextBlock Grid.Column="2" ToolTip="{Binding ToolTips.DefaultAddinState}" Height="17" Width="40" Margin="-10, 0, -15, -12" Text="Default" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="-90" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <TextBlock Grid.Column="3" ToolTip="{Binding ToolTips.DebugAddinState}" Height="17" Width="40" Margin="-10, 0, -15, -12" Text="Debug" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="-90" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+        </Grid>
+
+        <!--TreeView Area-->
+        <TreeView Name="trvMenu" Grid.Row="4" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Width="auto">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type self:AddinEntry}" ItemsSource="{Binding Children}">
+                    <Grid  MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="45" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DisplayName}" ToolTip="{Binding FilePath}" ToolTipService.InitialShowDelay="2000" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left" VerticalAlignment="Center" MouseDown="textBlock_MouseDown"/>
+                        <CheckBox  Grid.Row="0" Grid.Column="1" x:Name="defaultCheckBox"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{Binding MarginOffset}"
+                                   IsChecked="{Binding OnByDefault}" Opacity="{Binding Opacity}"/>
+                        <CheckBox  Grid.Row="0" Grid.Column="2" x:Name="debugCheckBox"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{Binding MarginOffset}"
+                                   IsChecked="{Binding OnByDebug}" Opacity="{Binding Opacity}"/>
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
         
     </Grid>
 </UserControl>

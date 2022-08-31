@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\AddinEntry.cs" />
     <Compile Include="ToolWindows\ToolTips.cs" />
     <Compile Include="ToolWindows\ManifestLocations.cs" />
     <Compile Include="VSCommandTable.cs">
