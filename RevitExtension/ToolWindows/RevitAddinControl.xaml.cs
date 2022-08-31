@@ -27,7 +27,7 @@ public partial class RevitAddinControl : UserControl
 
     private void refreshList(string machinePath, string userPath)
     {
-        getAddinEntries(machinePath, userPath);
+        _ = getAddinEntriesAsync();
 
         trvMenu.Items.Clear();
         if (groupingToggle.Content is null || groupingToggle.Content.ToString() == _changeGroupingToYear)
@@ -36,13 +36,15 @@ public partial class RevitAddinControl : UserControl
         { foreach (var entry in EntriesByYear) { trvMenu.Items.Add(entry); } }
     }
 
-    private void getAddinEntries(string machinePath, string userPath)
+    private async Task getAddinEntriesAsync()
     {
+        var options = await General.GetLiveInstanceAsync();
+
         SortedDictionary<string, ObservableCollection<AddinEntry>> byYear = new();
         SortedDictionary<string, ObservableCollection<AddinEntry>> byAddin = new();
 
-        var directories = Directory.GetDirectories(machinePath).ToList();
-        directories.AddRange(Directory.GetDirectories(userPath));
+        var directories = Directory.GetDirectories(options.MachinePath).ToList();
+        directories.AddRange(Directory.GetDirectories(options.UserPath));
 
         foreach (string path in directories)
         {
@@ -128,31 +130,26 @@ public partial class RevitAddinControl : UserControl
     {
         if (sender is AddinEntry child && !child.IsUpdating)
         {
-            child.IsUpdating = true;
-            var entryByYear = EntriesByYear.FirstOrDefault(item => item.DisplayName == child.AddinYear)?
-                .Children.FirstOrDefault(item => item.DisplayName == child.AddinName);
-            var entryByAddin = EntriesByAddin.FirstOrDefault(item => item.DisplayName == child.AddinName)?
-                .Children.FirstOrDefault(item => item.DisplayName == child.AddinYear);
-
-            entryByYear?.MatchPropertySilently(e.PropertyName, child);
-            entryByAddin?.MatchPropertySilently(e.PropertyName, child);
-
-            if (child.Parent is AddinEntry parent && !parent.IsUpdating)
+            try
             {
-                parent.PropertyChanged -= new PropertyChangedEventHandler(parentEntry_PropertyChanged);
-                parent.VerifyCheckState(e.PropertyName);
-                parent.PropertyChanged += new PropertyChangedEventHandler(parentEntry_PropertyChanged);
+                child.IsUpdating = true;
+                var twin = EntriesByYear.FirstOrDefault(item => item.DisplayName == child.AddinYear)?
+                    .Children.FirstOrDefault(item => item.DisplayName == child.AddinName);
+                if (twin == child)
+                {
+                    twin = EntriesByAddin.FirstOrDefault(item => item.DisplayName == child.AddinName)?
+                        .Children.FirstOrDefault(item => item.DisplayName == child.AddinYear);
+                }
+                child.Update(e.PropertyName, twin);
             }
-
-            if (e.PropertyName == nameof(child.OnByDefault))
+            catch (Exception ex)
             {
-                child.UpdateFile(DebugState.None);
+                Log.Error(ex, 
+                    "There was a problem with changing the property '{Property}' for '{Class}'",
+                    e.PropertyName, nameof(AddinEntry));
+                refreshList(Locations.MachinePath, Locations.UserPath);
             }
-            else if (e.PropertyName == nameof(child.OnByDebug))
-            {
-                //TODO: Update config file
-            }
-            child.IsUpdating = false;
+            finally { child.IsUpdating = false; }
         }
 
     }
@@ -166,26 +163,18 @@ public partial class RevitAddinControl : UserControl
 
     private void btn_RevitLocation_Click(object sender, RoutedEventArgs e)
     {
-        var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog
-        {
-            SelectedPath = Locations.MachinePath
-        };
-        if (dialog.ShowDialog().GetValueOrDefault())
-        {
-            Locations.MachinePath = dialog.SelectedPath;
-        }
+        string newPath = CustomDialogs.AskUserForFolder(Locations.MachinePath);
+        if (newPath != null && newPath != Locations.MachinePath)
+        { Locations.MachinePath = newPath; }
     }
 
-    private void btn_UserLocation_Click(object sender, RoutedEventArgs e)
+    private async void btn_UserLocation_Click(object sender, RoutedEventArgs e)
     {
-        var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog
-        {
-            SelectedPath = Locations.UserPath
-        };
-        if (dialog.ShowDialog().GetValueOrDefault())
-        {
-            Locations.UserPath = dialog.SelectedPath;
-        }
+        //string newPath = HandleNotifications.AskUserForFolder(Locations.UserPath);
+        //if (newPath != null && newPath != Locations.UserPath)
+        //{ Locations.UserPath = newPath; }
+
+        //var docView = await VS.Documents.
     }
 
     private void groupingToggle_Click(object sender, RoutedEventArgs e)
@@ -208,7 +197,6 @@ public partial class RevitAddinControl : UserControl
 
     private void textBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-
         if (e.ClickCount == 2 && 
             sender is TextBlock textBlock && 
             textBlock.ToolTip is string path &&

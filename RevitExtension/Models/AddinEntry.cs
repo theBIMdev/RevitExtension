@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static RevitExtension.RevitAddinControl;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace RevitExtension;
 
@@ -15,6 +17,7 @@ public class AddinEntry : INotifyPropertyChanged
     private ObservableCollection<AddinEntry> _children = new();
     private bool? _onByDefault;
     private bool? _onByDebug;
+    private string _filePath;
 
     public AddinEntry() { }
 
@@ -36,7 +39,6 @@ public class AddinEntry : INotifyPropertyChanged
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(OnByDefault)));
         }
     }
-    public string OnByDefaultToolTip { get; set; }
     public bool? OnByDebug
     {
         get => _onByDebug;
@@ -46,9 +48,15 @@ public class AddinEntry : INotifyPropertyChanged
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(OnByDebug)));
         }
     }
-    public string OnByDebugToolTip { get; set; }
-    public bool? IsEnabled { get; set; }
-    public string FilePath { get; set; }
+    public string FilePath
+    {
+        get => _filePath;
+        set
+        {
+            _filePath = value;
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(FilePath)));
+        }
+    }
     public bool IsUpdating { get; set; } = false;
 
     public AddinEntry Parent { get; set; }
@@ -109,20 +117,31 @@ public class AddinEntry : INotifyPropertyChanged
         }
     }
 
-    public void MatchPropertySilently(string propertyName, AddinEntry entry)
+    public void Update(string propertyName, AddinEntry twinEntry)
     {
-        FilePath = entry.FilePath;
+        IsUpdating = true;
+
         if (propertyName == nameof(OnByDefault))
         {
-            _onByDefault = entry.OnByDefault;
+            updateFile(DebugState.None);
         }
         else if (propertyName == nameof(OnByDebug))
         {
-            _onByDebug = entry.OnByDebug;
+            //TODO: Update config file
         }
+
+        twinEntry.MatchPropertySilently(propertyName, this);
+
+        if (Parent is AddinEntry parent && !parent.IsUpdating)
+        {
+            parent.IsUpdating = true;
+            parent.VerifyCheckState(propertyName);
+            parent.IsUpdating = false;
+        }
+        IsUpdating = false;
     }
 
-    public void UpdateFile(DebugState debugger)
+    private void updateFile(DebugState debugger)
     {
         if (FilePath is null) return;
 
@@ -134,23 +153,54 @@ public class AddinEntry : INotifyPropertyChanged
                 else { turnOff(FilePath); }
                 break;
             case DebugState.Starting:
-                break;
+                throw new NotImplementedException();
             case DebugState.Ending:
-                break;
+                throw new NotImplementedException();
         }
     }
 
     private void turnOn(string file)
     {
         string newName = file.Replace(".addin.off", ".addin");
-        File.Move(file, newName);
-        FilePath = newName;
+        rename(file, newName);
     }
     private void turnOff(string file)
     {
         string newName = file.Replace(".addin", ".addin.off");
-        File.Move(file, newName);
-        FilePath = newName;
+        rename(file, newName);
+    }
+    private void rename(string oldName, string newName)
+    {
+        try
+        {
+            File.Move(oldName, newName);
+            FilePath = newName;
+        }
+        catch
+        {
+            string message = $"Could not rename the manifest for the addin '{AddinName}'.\r\n" +
+                $"Please make sure that:\r\n" +
+                $"-The file is not in use\r\n" +
+                $"-You have access to edit it\r\n" +
+                $"-There is not another copy of this manifest in this location\r\n\r\n" +
+                $"Current Name: {oldName}\r\n" +
+                $"Name Attempted: {newName}";
+            VS.MessageBox.ShowError(message);
+            throw;
+        }
+    }
+
+    public void MatchPropertySilently(string propertyName, AddinEntry entry)
+    {
+        _filePath = entry.FilePath;
+        if (propertyName == nameof(OnByDefault))
+        {
+            _onByDefault = entry.OnByDefault;
+        }
+        else if (propertyName == nameof(OnByDebug))
+        {
+            _onByDebug = entry.OnByDebug;
+        }
     }
 }
 

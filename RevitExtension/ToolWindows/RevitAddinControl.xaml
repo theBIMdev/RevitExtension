@@ -55,7 +55,7 @@
         </Grid>
         
         <!--Addin Grouping and Labels Area-->
-        <Grid Grid.Row="3" MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
+        <Grid Grid.Row="3" MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}" MaxWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="*"/>
@@ -89,7 +89,7 @@
         <TreeView Name="trvMenu" Grid.Row="4" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Width="auto">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type self:AddinEntry}" ItemsSource="{Binding Children}">
-                    <Grid  MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
+                    <Grid  MinWidth="{Binding ElementName=topGrid, Path=ActualWidth}" MaxWidth="{Binding ElementName=topGrid, Path=ActualWidth}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="20" />
