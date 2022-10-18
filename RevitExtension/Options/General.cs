@@ -13,33 +13,40 @@ internal partial class OptionsProvider
 public class General : BaseOptionModel<General>
 {
     const string _adskPath = "\\Autodesk\\Revit\\Addins";
+    private static readonly string _defaultMachinePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + _adskPath;
+    private static readonly string _defaultUserPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + _adskPath;
 
     [Category("Debugging")]
-    [DisplayName("Enable during debug")]
-    [Description("At debug time, rename each Revit Addin manifest file to add/remove the '.off' extension when the debugger starts/stops.")]
+    [DisplayName("Enable 'Debug Time' changes")]
+    [Description("When the debugger starts/stops, rename each Revit Addin manifest file to add/remove the '.off' extension based on which have the 'Debug' box checked/unchecked.")]
     [DefaultValue(true)]
     public bool RenameOnDebug { get; set; } = true;
 
     [Category("Debugging")]
-    [DisplayName("Always enable developing addin")]
-    [Description("At debug time, always turn on the manifest files for the addin currently being developed.")]
+    [DisplayName("Enable current addin")]
+    [Description("Always treat the addin currently being developed as if its 'Debug' box is checked.")]
     [DefaultValue(true)]
     public bool AlwaysRunDevelopingAddin { get; set; } = true;
 
     [Category("Debugging")]
+    [DisplayName("Selected debug-time addins")]
+    [Description("This is a list of addins that have been selected by the user to be turned on when the debugger starts.")]
+    public string SelectedDebugAddins { get; set; }
+
+    [Category("Debugging")]
     [DisplayName("Only enable relevant year")]
-    [Description("At debug time, only turn on the manifest of selected addins that also match the Revit version (year) being launched.")]
+    [Description("When the debugger starts/stops, only rename the manifest of selected addins that also match the Revit version (year) being launched.")]
     [DefaultValue(true)]
     public bool OnlyEnableRelevantYear { get; set; } = true;
 
     [Category("Manifest Paths")]
     [DisplayName("Revit's Addin Location")]
     [Description("This where Revit looks for addin manifests that all users use. Typically it should never need to change.")]
-    public string MachinePath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + _adskPath;
+    public string MachinePath { get; set; } = _defaultMachinePath;
 
     [Category("Manifest Paths")]
     [DisplayName("User's Addin Location")]
     [Description("This where Revit looks for addin manifests that only the current user uses. Typically it should never need to change.")]
-    public string UserPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + _adskPath;
+    public string UserPath { get; set; } = _defaultUserPath;
 
 }

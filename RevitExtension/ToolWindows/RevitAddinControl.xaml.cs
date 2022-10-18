@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -159,13 +161,14 @@ public partial class RevitAddinControl : UserControl
         {
             refreshList(locations.MachinePath, locations.UserPath);
         }
+
     }
 
     private void btn_RevitLocation_Click(object sender, RoutedEventArgs e)
     {
-        string newPath = CustomDialogs.AskUserForFolder(Locations.MachinePath);
-        if (newPath != null && newPath != Locations.MachinePath)
-        { Locations.MachinePath = newPath; }
+        //string newPath = CustomDialogs.AskUserForFolder(Locations.MachinePath);
+        //if (newPath != null && newPath != Locations.MachinePath)
+        //{ Locations.MachinePath = newPath; }
     }
 
     private async void btn_UserLocation_Click(object sender, RoutedEventArgs e)
@@ -175,6 +178,17 @@ public partial class RevitAddinControl : UserControl
         //{ Locations.UserPath = newPath; }
 
         //var docView = await VS.Documents.
+        IVsDebugger debugger = await VS.Services.GetDebuggerAsync();
+
+        DBGMODE[] mode = new DBGMODE[1];
+        await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+        ErrorHandler.ThrowOnFailure(debugger.GetMode(mode));
+
+        if (mode[0] != DBGMODE.DBGMODE_Design)
+        {
+            //EnvDteHelper.ShowError(CompareLocale.CannotCompareContextToDatabaseWhileDebugging);
+            return;
+        }
     }
 
     private void groupingToggle_Click(object sender, RoutedEventArgs e)
