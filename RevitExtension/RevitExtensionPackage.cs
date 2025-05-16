@@ -1,66 +1,81 @@
-﻿//    The BIMDev Extension is an extension for Visual Studio that provides a template for creating a Revit Addin.
-//    Copyright(C) 2021  BIMDev LLC
-
-//    This program is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-
-using Microsoft.VisualStudio.Shell;
-using System;
+﻿global using Community.VisualStudio.Toolkit;
+global using Microsoft.VisualStudio.Shell;
+global using System;
+global using Task = System.Threading.Tasks.Task;
+global using Serilog;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Task = System.Threading.Tasks.Task;
+using EnvDTE;
+using Microsoft;
+using System.Diagnostics;
 
-namespace RevitExtension
+namespace RevitExtension;
+[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+[InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
+[ProvideToolWindow(typeof(RevitAddinWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.SolutionExplorer)]
+[ProvideMenuResource("Menus.ctmenu", 1)]
+[Guid(PackageGuids.RevitExtensionString)]
+[ProvideOptionPage(typeof(OptionsProvider.GeneralOptions), "Revit Extension", "General", 0, 0, true, SupportsProfiles = true)]
+public sealed class RevitExtensionPackage : ToolkitPackage
 {
-    /// <summary>
-    /// This is the class that implements the package exposed by this assembly.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// The minimum requirement for a class to be considered a valid package for Visual Studio
-    /// is to implement the IVsPackage interface and register itself with the shell.
-    /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    /// to do it: it derives from the Package class that provides the implementation of the
-    /// IVsPackage interface and uses the registration attributes defined in the framework to
-    /// register itself and its components with the shell. These attributes tell the pkgdef creation
-    /// utility what data to put into .pkgdef file.
-    /// </para>
-    /// <para>
-    /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
-    /// </para>
-    /// </remarks>
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(RevitExtensionPackage.PackageGuidString)]
-    public sealed class RevitExtensionPackage : AsyncPackage
+    private static DTE _dte;
+    private static EnvDTE.Events _events;
+    private static EnvDTE.DebuggerEvents _debugEvents;
+
+    protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
     {
-        /// <summary>
-        /// RevitExtensionPackage GUID string.
-        /// </summary>
-        public const string PackageGuidString = "84fc9fed-cdb7-4906-85f0-c45abc0882ba";
+        Log.Logger = new LoggerConfiguration()
+            .Enrich.WithMachineName()
+            .WriteTo.Debug(Serilog.Events.LogEventLevel.Debug)
+            .WriteTo.Seq("http://localhost:5341/")
+            .CreateLogger();
 
-        #region Package Members
+        await this.RegisterCommandsAsync();
 
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
-        /// </summary>
-        /// <param name="cancellationToken">A cancellation token to monitor for initialization cancellation, which can occur when VS is shutting down.</param>
-        /// <param name="progress">A provider for progress updates.</param>
-        /// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
-        {
-            // When initialized asynchronously, the current thread may be a background thread at this point.
-            // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-        }
+        this.RegisterToolWindows();
 
-        #endregion
+
+
+
+
+
+        await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+        _dte = (EnvDTE.DTE)await this.GetServiceAsync(typeof(EnvDTE.DTE));
+        Assumes.Present(_dte);
+        _events = _dte.Events;
+        _debugEvents = _events.DebuggerEvents;
+
+
+        //EnvDTE.DebuggerEvents eventsDebuggerEvents = _events.DebuggerEvents;
+
+        //debugEvents.OnEnterBreakMode +=
+        //    new _dispDebuggerEvents_OnEnterBreakModeEventHandler(DebugEvents_OnEnterBreakMode);
+
+        //debugEvents.OnContextChanged +=
+        //    new _dispDebuggerEvents_OnContextChangedEventHandler(ContextHandler);
+
+        //debugEvents.OnEnterDesignMode += DebugEvents_OnEnterDesignMode;
+        _debugEvents.OnEnterRunMode += DebugEvents_OnEnterRunMode;
     }
+
+    private void DebugEvents_OnEnterRunMode(dbgEventReason Reason)
+    {
+        Debug.WriteLine("DebugEvents_OnEnterRunMode");
+        Log.Information("Debugger event triggered");
+    }
+
+    //private void DebugEvents_OnEnterDesignMode(dbgEventReason Reason)
+    //{
+    //    Debug.WriteLine("DebugEvents_OnEnterDesignMode");
+    //}
+
+    //private void DebugEvents_OnEnterBreakMode(dbgEventReason Reason, ref dbgExecutionAction ExecutionAction)
+    //{
+    //    Debug.WriteLine("DebugEvents_OnEnterBreakMode");
+    //}
+
+    //private void ContextHandler(EnvDTE.Process NewProcess, Program NewProgram, EnvDTE.Thread NewThread, EnvDTE.StackFrame NewStackFrame)
+    //{
+    //    Debug.WriteLine("ContextHandler");
+    //}
 }
